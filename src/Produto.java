@@ -1,12 +1,12 @@
 
 public class Produto {
-	private Integer id;
+	private Long id;
 	private String nome;
 	private Integer quantidade;
 	private Double preco;
 	private Empresa empresa;
 
-	public Produto(Integer id,String nome, Integer quantidade, Double preco, Empresa empresa) {
+	public Produto(Long id,String nome, Integer quantidade, Double preco, Empresa empresa) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -17,16 +17,15 @@ public class Produto {
 
 	public Produto() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

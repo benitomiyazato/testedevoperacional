@@ -1,31 +1,24 @@
 
-public class Cliente {
+public class Cliente extends Usuario{
+	private Long id;
 	private String cpf;
 	private String nome;
-	private String username;
 	private Integer idade;
 
-	public Cliente(String cpf, String nome, String username, Integer idade) {
-		super();
+	public Cliente(String cpf, String nome, Long id, String username, String senha, Integer idade) {
+		super(username, senha);
 		this.cpf = cpf;
 		this.nome = nome;
-		this.username = username;
 		this.idade = idade;
+		this.id = id;
 	}
+
+	public Cliente(){}
 
 	public String getCpf() {
 		return cpf;
 	}
 	
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
@@ -44,6 +37,14 @@ public class Cliente {
 
 	public void setIdade(Integer idade) {
 		this.idade = idade;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }
