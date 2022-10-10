@@ -1,9 +1,7 @@
 # testedevoperacional
 
-Após analisar por algum tempo o sistema, identifiquei algumas possíveis melhorias.
-
+Após analisar por algum tempo o sistema, identifiquei algumas possíveis melhorias. 
 ##
-
   - Adicionei a prática de polimorfismo ao fazer as classes Cliente, Empresa extenderem a classe Usuário, além de criar a classe Admin (que também extende Usuário). Após fazer isso, alguns ajustes tiveram de ser feitos no código.
   
   - Mudei o ID para o tipo Long.
