@@ -1,7 +1,8 @@
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -10,8 +11,8 @@ public class Main {
 
 		// SIMULANDO BANCO DE DADOS
 
-		List<Produto> carrinho = new ArrayList<Produto>();
-		List<Venda> vendas = new ArrayList<Venda>();
+		Set<Produto> carrinho = new HashSet<>();
+		List<Venda> vendas = new ArrayList<>();
 
 		Usuario admin = new Admin("admin", "1234", "Fulano", 1L);
 		Usuario empresa1 = new Empresa("empresa", "1234", 1L, "SafeWay Padaria", "30021423000159", 0.15, 0.0);
@@ -31,13 +32,13 @@ public class Main {
 		Produto produto9 = new Produto(9L, "Croissant", 7, 6.50, (Empresa) empresa1);
 		Produto produto10 = new Produto(10L, "Ché Gelado", 4, 5.50, (Empresa) empresa1);
 
-		List<Usuario> usuarios = Arrays.asList(admin, empresa1, cliente1, cliente2, empresa2, empresa3);
-		List<Produto> produtos = Arrays.asList(produto, produto2, produto3, produto4, produto5, produto6, produto7,
+		Set<Usuario> usuarios = Set.of(admin, empresa1, cliente1, cliente2, empresa2, empresa3);
+		Set<Produto> produtos = Set.of(produto, produto2, produto3, produto4, produto5, produto6, produto7,
 				produto8, produto9, produto10);
 		executar(usuarios, produtos, carrinho, vendas);
 	}
 
-	public static void executar(List<Usuario> usuarios, List<Produto> produtos, List<Produto> carrinho,
+	public static void executar(Set<Usuario> usuarios, Set<Produto> produtos, Set<Produto> carrinho,
 			List<Venda> vendas) {
 		Scanner sc = new Scanner(System.in);
 
@@ -47,10 +48,10 @@ public class Main {
 		System.out.print("Senha: ");
 		String senha = sc.next();
 
-		List<Usuario> usuariosSearch = usuarios.stream().filter(x -> x.getUsername().equals(username))
-				.collect(Collectors.toList());
+		Set<Usuario> usuariosSearch = usuarios.stream().filter(x -> x.getUsername().equals(username))
+				.collect(Collectors.toSet());
 		if (usuariosSearch.size() > 0) {
-			Usuario usuarioLogado = usuariosSearch.get(0);
+			Usuario usuarioLogado = usuariosSearch.toArray(new Usuario[usuariosSearch.size()])[0];
 			if ((usuarioLogado.getSenha().equals(senha))) {
 
 				System.out.println("Escolha uma opção para iniciar");
@@ -143,8 +144,8 @@ public class Main {
 									System.out.println(x.getId() + " - " + x.getNome() + "    R$" + x.getPreco());
 								}
 							});
-							List<Usuario> empresas = usuarios.stream().filter(x -> x instanceof Empresa)
-									.collect(Collectors.toList());
+							Set<Usuario> empresas = usuarios.stream().filter(x -> x instanceof Empresa)
+									.collect(Collectors.toSet());
 							Empresa empresaEscolhida = new Empresa();
 							;
 							for (Usuario empresa : empresas) {
@@ -154,8 +155,8 @@ public class Main {
 									break;
 								}
 							}
-							List<Usuario> clientes = usuarios.stream().filter(x -> x instanceof Cliente)
-									.collect(Collectors.toList());
+							Set<Usuario> clientes = usuarios.stream().filter(x -> x instanceof Cliente)
+									.collect(Collectors.toSet());
 							Cliente clienteLogado = new Cliente();
 							for (Usuario cliente : clientes) {
 								Cliente parsedCliente = (Cliente) cliente;
@@ -205,7 +206,7 @@ public class Main {
 		}
 	}
 
-	public static Venda criarVenda(List<Produto> carrinho, Empresa empresa, Cliente cliente, List<Venda> vendas) {
+	public static Venda criarVenda(Set<Produto> carrinho, Empresa empresa, Cliente cliente, List<Venda> vendas) {
 		Double total = carrinho.stream().mapToDouble(Produto::getPreco).sum();
 		Double comissaoSistema = total * empresa.getTaxa();
 		int idVenda = vendas.isEmpty() ? 1 : vendas.get(vendas.size() - 1).getCódigo() + 1;
