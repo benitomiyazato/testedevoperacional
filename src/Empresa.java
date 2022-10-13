@@ -1,3 +1,4 @@
+import java.util.Set;
 
 public class Empresa extends Usuario{
 	private Long id;
@@ -16,6 +17,18 @@ public class Empresa extends Usuario{
 	}
 
 	public Empresa(){}
+
+	public static Empresa acharEmpresaPorId(long empresaId, Set<Usuario> empresas) {
+		Empresa empresaEncontrada = new Empresa();
+		for (Usuario empresa : empresas) {
+			Empresa parsedEmpresa = (Empresa) empresa;
+			if (parsedEmpresa.getId().equals(empresaId)) {
+				empresaEncontrada = parsedEmpresa;
+				break;
+			}
+		}
+		return empresaEncontrada;
+	}
 
 	public String getNome() {
 		return nome;

@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Set;
 
 public class Produto {
@@ -7,7 +8,21 @@ public class Produto {
 	private Double preco;
 	private Empresa empresa;
 
-	public Produto(Long id,String nome, Integer quantidade, Double preco, Empresa empresa) {
+	public static void imprimirProdutosPorEmpresaId(long empresaId, List<Produto> produtos) {
+		System.out.println("Escolha os seus produtos: ");
+		produtos.stream().forEach(x -> {
+			if (x.getEmpresa().getId().equals(empresaId)) {
+				System.out.println(x);
+			}
+		});
+	}
+
+	@Override
+	public String toString() {
+		return id + "-" + nome;
+	}
+
+	public Produto(Long id, String nome, Integer quantidade, Double preco, Empresa empresa) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -20,7 +35,7 @@ public class Produto {
 		super();
 	}
 
-	public static void imprimirProdutosPorEmpresa(Empresa empresa, Set<Produto> produtos) {
+	public static void imprimirProdutosPorEmpresa(Empresa empresa, List<Produto> produtos) {
 		System.out.println();
 		System.out.println("************************************************************");
 		System.out.println("MEUS PRODUTOS");

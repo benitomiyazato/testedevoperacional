@@ -1,8 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -33,12 +29,12 @@ public class Main {
 		Produto produto10 = new Produto(10L, "Ché Gelado", 4, 5.50, (Empresa) empresa1);
 
 		Set<Usuario> usuarios = Set.of(admin, empresa1, cliente1, cliente2, empresa2, empresa3);
-		Set<Produto> produtos = Set.of(produto, produto2, produto3, produto4, produto5, produto6, produto7,
+		List<Produto> produtos = List.of(produto, produto2, produto3, produto4, produto5, produto6, produto7,
 				produto8, produto9, produto10);
 		executar(usuarios, produtos, carrinho, vendas);
 	}
 
-	public static void executar(Set<Usuario> usuarios, Set<Produto> produtos, Set<Produto> carrinho,
+	public static void executar(Set<Usuario> usuarios, List<Produto> produtos, Set<Produto> carrinho,
 			List<Venda> vendas) {
 		Scanner sc = new Scanner(System.in);
 
@@ -81,20 +77,16 @@ public class Main {
 					System.out.println("1 - Relizar Compras");
 					System.out.println("2 - Ver Compras");
 					System.out.println("0 - Deslogar");
-					Integer escolha = sc.nextInt();
+					int escolha = sc.nextInt();
 					switch (escolha) {
 						case 1: {
 							System.out.println("Para realizar uma compra, escolha a empresa onde deseja comprar: ");
 							usuarios.stream().filter(x -> x instanceof Empresa).forEach(System.out::println);
-							Long escolhaEmpresa = sc.nextLong();
+							long escolhaEmpresa = sc.nextLong();
 							long escolhaProduto = -1L;
+
 							do {
-								System.out.println("Escolha os seus produtos: ");
-								produtos.stream().forEach(x -> {
-									if (x.getEmpresa().getId().equals(escolhaEmpresa)) {
-										System.out.println(x.getId() + " - " + x.getNome());
-									}
-								});
+								Produto.imprimirProdutosPorEmpresaId(escolhaEmpresa, produtos);
 								System.out.println("0 - Finalizar compra");
 								escolhaProduto = sc.nextLong();
 								for (Produto produtoSearch : produtos) {
@@ -102,34 +94,26 @@ public class Main {
 										carrinho.add(produtoSearch);
 								}
 							} while (escolhaProduto != 0);
+
 							System.out.println("************************************************************");
 							System.out.println("Resumo da compra: ");
 							carrinho.stream().forEach(x -> {
 								if (x.getEmpresa().getId().equals(escolhaEmpresa)) {
-									System.out.println(x.getId() + " - " + x.getNome() + "    R$" + x.getPreco());
+									System.out.println(x + "    R$" + x.getPreco());
 								}
 							});
+
+							// pegando empresa de acordo com Id
 							Set<Usuario> empresas = usuarios.stream().filter(x -> x instanceof Empresa)
 									.collect(Collectors.toSet());
-							Empresa empresaEscolhida = new Empresa();
-							;
-							for (Usuario empresa : empresas) {
-								Empresa parsedEmpresa = (Empresa) empresa;
-								if (parsedEmpresa.getId().equals(escolhaEmpresa)) {
-									empresaEscolhida = parsedEmpresa;
-									break;
-								}
-							}
+							Empresa empresaEscolhida = Empresa.acharEmpresaPorId(escolhaEmpresa, empresas);
+
+
+							// pegando cliente de acordo com Id
 							Set<Usuario> clientes = usuarios.stream().filter(x -> x instanceof Cliente)
 									.collect(Collectors.toSet());
-							Cliente clienteLogado = new Cliente();
-							for (Usuario cliente : clientes) {
-								Cliente parsedCliente = (Cliente) cliente;
-								if (cliente.getUsername().equals(usuarioLogado.getUsername())) {
-									clienteLogado = parsedCliente;
-									break;
-								}
-							}
+							Cliente clienteLogado = Cliente.acharClientePorUsername(usuarioLogado.getUsername(), clientes);
+
 							Venda venda = criarVenda(carrinho, empresaEscolhida, clienteLogado, vendas);
 							System.out.println("Total: R$" + venda.getValor());
 							System.out.println("************************************************************");
