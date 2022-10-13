@@ -62,4 +62,8 @@ public class Empresa extends Usuario{
 		return id + "-" + nome;
 	}
 
+    public void imprimirSaldo() {
+		System.out.println("Saldo Empresa: " + saldo);
+		System.out.println("************************************************************");
+    }
 }

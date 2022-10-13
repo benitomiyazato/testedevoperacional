@@ -1,3 +1,4 @@
+import java.util.Set;
 
 public class Produto {
 	private Long id;
@@ -18,8 +19,23 @@ public class Produto {
 	public Produto() {
 		super();
 	}
-	
-	
+
+	public static void imprimirProdutosPorEmpresa(Empresa empresa, Set<Produto> produtos) {
+		System.out.println();
+		System.out.println("************************************************************");
+		System.out.println("MEUS PRODUTOS");
+		produtos.stream().forEach(produto -> {
+			if (produto.getEmpresa().getId().equals(empresa.getId())) {
+				System.out.println("************************************************************");
+				System.out.println("Código: " + produto.getId());
+				System.out.println("Produto: " + produto.getNome());
+				System.out.println("Quantidade em estoque: " + produto.getQuantidade());
+				System.out.println("Valor: R$" + produto.getPreco());
+				System.out.println("************************************************************");
+			}
+		});
+	}
+
 
 	public Long getId() {
 		return id;
