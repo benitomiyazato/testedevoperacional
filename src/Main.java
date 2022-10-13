@@ -51,7 +51,7 @@ public class Main {
 		Set<Usuario> usuariosSearch = usuarios.stream().filter(x -> x.getUsername().equals(username))
 				.collect(Collectors.toSet());
 		if (usuariosSearch.size() > 0) {
-			Usuario usuarioLogado = usuariosSearch.toArray(new Usuario[usuariosSearch.size()])[0];
+			Usuario usuarioLogado = usuariosSearch.stream().findFirst().get();
 			if ((usuarioLogado.getSenha().equals(senha))) {
 
 				System.out.println("Escolha uma opção para iniciar");
@@ -59,7 +59,7 @@ public class Main {
 					System.out.println("1 - Listar vendas");
 					System.out.println("2 - Ver produtos");
 					System.out.println("0 - Deslogar");
-					Integer escolha = sc.nextInt();
+					int escolha = sc.nextInt();
 
 					switch (escolha) {
 						case 1: {
