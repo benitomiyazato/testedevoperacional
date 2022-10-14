@@ -14,4 +14,4 @@ Após analisar por algum tempo o sistema, identifiquei algumas possíveis melhor
     
   - Após a realização de uma compra, o saldo da empresa responsável pela venda não era ajustada adequadamente de acordo com as taxas que pagava. Isso geraria um engano nos extratos financeiros, pois o total líquido viria sem os descontos das taxas.
   
-  - Coleções de Produtos, Clientes e Empresas foram trocadas para a interface Set, com a implementação HashSet. Foi feito já que não devem existir duplicatas no sistema, além de permitir uma manipulação mais rápida dos dados. Porém, as coleções de produtos e vendas permaneceram como List, já que a ordenação, de certa maneira, importa. 
+  - Coleções de Clientes e Empresas foram trocadas para a interface Set, com a implementação HashSet. Foi feito já que não devem existir duplicatas no sistema, além de permitir uma manipulação mais rápida dos dados. Porém, as coleções de produtos e vendas permaneceram como List, já que a ordenação, de certa maneira, importa. 
